@@ -65,6 +65,7 @@ impl App {
                 Marker::Block => Marker::Bar,
                 Marker::Bar => Marker::Braille,
                 Marker::Braille => Marker::Dot,
+                _ => Marker::Dot,
             };
         }
         if self.ball.x < self.playground.left() as f64

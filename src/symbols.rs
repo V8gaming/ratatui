@@ -232,4 +232,137 @@ pub enum Marker {
     Bar,
     /// Up to 8 points per cell
     Braille,
+    /// One point per cell in shapes in block
+    Blocks(Blocks),
+    /// One point per cell in shapes in bar
+    Bars(Bars),
+    /// One point per cell in shapes in line
+    Lines(Lines),
+}
+#[derive(Debug, Clone, Copy)]
+pub enum Blocks {
+    /// shape of "█"
+    FULL,
+    /// shape of "▉"
+    SevenEights,
+    /// shape of "▊"
+    ThreeQuarters,
+    /// shape of "▋"
+    FiveEighths,
+    /// shape of "▌"
+    HALF,
+    /// shape of "▍"
+    ThreeEighths,
+    /// shape of "▎"
+    OneQuarter,
+    /// shape of "▏"
+    OneEighth,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum Bars {
+    /// shape of "█"
+    FULL,
+    /// shape of "▇"
+    SevenEights,
+    /// shape of "▆"
+    ThreeQuarters,
+    /// shape of "▅"
+    FiveEighths,
+    /// shape of "▄"
+    HALF,
+    /// shape of "▃"
+    ThreeEighths,
+    /// shape of "▂"
+    OneQuarter,
+    /// shape of "▁"
+    OneEighth,
+}
+
+#[derive(Debug, Clone, Copy)]
+pub enum Lines {
+    /// shape of "│"
+    VERTICAL,
+    /// shape of "║"
+    DoubleVertical,
+    /// shape of "┃";
+    ThickVertical,
+    
+    /// shape of "─"
+    HORIZONTAL,
+    /// shape of "═"
+    DoubleHorizontal,
+    /// shape of "━"
+    ThickHorizontal,
+
+    /// shape of "┐"
+    TopRight,
+    /// shape of "╗"
+    DoubleTopRight,
+    /// shape of "┓"
+    ThickTopRight,
+    /// shape of "╮"
+    RoundedTopRight,
+
+    /// shape of "┌"
+    TopLeft,
+    /// shape of "╔"
+    DoubleTopLeft,
+    /// shape of "┏"
+    ThickTopLeft,
+    /// shape of "╭"
+    RoundedTopLeft,
+
+    /// shape of "┘"
+    BottomRight,
+    /// shape of "╝"
+    DoubleBottomRight,
+    /// shape of "┛"
+    ThickBottomRight,
+    /// shape of "╯"
+    RoundedBottomRight,
+
+    /// shape of "└"
+    BottomLeft,
+    /// shape of "╚"
+    DoubleBottomLeft,
+    /// shape of "┗"
+    ThickBottomLeft,
+    /// shape of "╰"
+    RoundedBottomLeft,
+
+    /// shape of "┤"
+    VerticalLeft,
+    /// shape of "╣"
+    DoubleVerticalLeft,
+    /// shape of "┫"
+    ThickVerticalLeft,
+
+    /// shape of "├"
+    VerticalRight,
+    /// shape of "╠"
+    DoubleVerticalRight,
+    /// shape of "┣"
+    ThickVerticalRight,
+
+    /// shape of "┬"
+    HorizontalDown,
+    /// shape of "╦"
+    DoubleHorizontalDown,
+    /// shape of "┳"
+    ThickHorizontalDown,
+
+    /// shape of "┴"
+    HorizontalUp,
+    /// shape of "╩"
+    DoubleHorizontalUp,
+    /// shape of "┻"
+    ThickHorizontalUp,
+
+    /// shape of "┼"
+    CROSS,
+    /// shape of "╬"
+    DoubleCross,
+    /// shape of "╋"
+    ThickCross,
 }

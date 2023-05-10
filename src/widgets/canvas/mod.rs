@@ -270,6 +270,75 @@ impl<'a> Context<'a> {
             symbols::Marker::Block => Box::new(CharGrid::new(width, height, block)),
             symbols::Marker::Bar => Box::new(CharGrid::new(width, height, bar)),
             symbols::Marker::Braille => Box::new(BrailleGrid::new(width, height)),
+            symbols::Marker::Blocks(marker) => match marker {
+                symbols::Blocks::FULL => Box::new(CharGrid::new(width, height, '█')),
+                symbols::Blocks::SevenEights => Box::new(CharGrid::new(width, height, '▉')),
+                symbols::Blocks::ThreeQuarters => Box::new(CharGrid::new(width, height, '▊')),
+                symbols::Blocks::FiveEighths => Box::new(CharGrid::new(width, height, '▋')),
+                symbols::Blocks::HALF => Box::new(CharGrid::new(width, height, '▌')),
+                symbols::Blocks::ThreeEighths => Box::new(CharGrid::new(width, height, '▍')),
+                symbols::Blocks::OneQuarter => Box::new(CharGrid::new(width, height, '▎')),
+                symbols::Blocks::OneEighth => Box::new(CharGrid::new(width, height, '▏')),
+            },
+            symbols::Marker::Bars(marker) => match marker {
+                symbols::Bars::FULL => Box::new(CharGrid::new(width, height, '█')),
+                symbols::Bars::SevenEights => Box::new(CharGrid::new(width, height, '▇')),
+                symbols::Bars::ThreeQuarters => Box::new(CharGrid::new(width, height, '▆')),
+                symbols::Bars::FiveEighths => Box::new(CharGrid::new(width, height, '▅')),
+                symbols::Bars::HALF => Box::new(CharGrid::new(width, height, '▄')),
+                symbols::Bars::ThreeEighths => Box::new(CharGrid::new(width, height, '▃')),
+                symbols::Bars::OneQuarter => Box::new(CharGrid::new(width, height, '▂')),
+                symbols::Bars::OneEighth => Box::new(CharGrid::new(width, height, '▁')),
+            },
+            symbols::Marker::Lines(marker) => match marker {
+                symbols::Lines::VERTICAL => Box::new(CharGrid::new(width, height, '│')),
+                symbols::Lines::DoubleVertical => Box::new(CharGrid::new(width, height, '║')),
+                symbols::Lines::ThickVertical => Box::new(CharGrid::new(width, height, '┃')),
+
+                symbols::Lines::HORIZONTAL => Box::new(CharGrid::new(width, height, '─')),
+                symbols::Lines::DoubleHorizontal => Box::new(CharGrid::new(width, height, '═')),
+                symbols::Lines::ThickHorizontal => Box::new(CharGrid::new(width, height, '━')),
+
+                symbols::Lines::TopRight => Box::new(CharGrid::new(width, height, '┐')),
+                symbols::Lines::DoubleTopRight => Box::new(CharGrid::new(width, height, '╗')),
+                symbols::Lines::ThickTopRight => Box::new(CharGrid::new(width, height, '┓')),
+                symbols::Lines::RoundedTopRight => Box::new(CharGrid::new(width, height, '╮')),
+
+                symbols::Lines::TopLeft => Box::new(CharGrid::new(width, height, '┌')),
+                symbols::Lines::DoubleTopLeft => Box::new(CharGrid::new(width, height, '╔')),
+                symbols::Lines::ThickTopLeft => Box::new(CharGrid::new(width, height, '┏')),
+                symbols::Lines::RoundedTopLeft => Box::new(CharGrid::new(width, height, '╭')),
+
+                symbols::Lines::BottomRight => Box::new(CharGrid::new(width, height, '┘')),
+                symbols::Lines::DoubleBottomRight => Box::new(CharGrid::new(width, height, '╝')),
+                symbols::Lines::ThickBottomRight => Box::new(CharGrid::new(width, height, '┛')),
+                symbols::Lines::RoundedBottomRight => Box::new(CharGrid::new(width, height, '╯')),
+
+                symbols::Lines::BottomLeft => Box::new(CharGrid::new(width, height, '└')),
+                symbols::Lines::DoubleBottomLeft => Box::new(CharGrid::new(width, height, '╚')),
+                symbols::Lines::ThickBottomLeft => Box::new(CharGrid::new(width, height, '┗')),
+                symbols::Lines::RoundedBottomLeft => Box::new(CharGrid::new(width, height, '╰')),
+
+                symbols::Lines::VerticalLeft => Box::new(CharGrid::new(width, height, '┤')),
+                symbols::Lines::DoubleVerticalLeft => Box::new(CharGrid::new(width, height, '╣')),
+                symbols::Lines::ThickVerticalLeft => Box::new(CharGrid::new(width, height, '┫')),
+
+                symbols::Lines::VerticalRight => Box::new(CharGrid::new(width, height, '├')),
+                symbols::Lines::DoubleVerticalRight => Box::new(CharGrid::new(width, height, '╠')),
+                symbols::Lines::ThickVerticalRight => Box::new(CharGrid::new(width, height, '┣')),
+
+                symbols::Lines::HorizontalDown => Box::new(CharGrid::new(width, height, '┬')),
+                symbols::Lines::DoubleHorizontalDown => Box::new(CharGrid::new(width, height, '╦')),
+                symbols::Lines::ThickHorizontalDown => Box::new(CharGrid::new(width, height, '┳')),
+
+                symbols::Lines::HorizontalUp => Box::new(CharGrid::new(width, height, '┴')),
+                symbols::Lines::DoubleHorizontalUp => Box::new(CharGrid::new(width, height, '╩')),
+                symbols::Lines::ThickHorizontalUp => Box::new(CharGrid::new(width, height, '┻')),
+
+                symbols::Lines::CROSS => Box::new(CharGrid::new(width, height, '┼')),
+                symbols::Lines::DoubleCross => Box::new(CharGrid::new(width, height, '╬')),
+                symbols::Lines::ThickCross => Box::new(CharGrid::new(width, height, '╋')),
+            },
         };
         Context {
             x_bounds,
