@@ -4,6 +4,7 @@ use unicode_width::UnicodeWidthStr;
 
 use crate::layout::Alignment;
 use crate::{
+    points,
     buffer::Buffer,
     layout::{Constraint, Rect},
     style::{Color, Style},
@@ -103,7 +104,7 @@ pub struct Dataset<'a> {
     /// Name of the dataset (used in the legend if shown)
     name: Cow<'a, str>,
     /// A reference to the actual data
-    data: &'a [(f64, f64)],
+    data: &'a [(f64, f64, bool)],
     /// Symbol used for each points of this dataset
     marker: symbols::Marker,
     /// Determines graph type used for drawing points
@@ -133,7 +134,7 @@ impl<'a> Dataset<'a> {
         self
     }
 
-    pub fn data(mut self, data: &'a [(f64, f64)]) -> Dataset<'a> {
+    pub fn data(mut self, data: &'a [(f64, f64, bool)]) -> Dataset<'a> {
         self.data = data;
         self
     }
@@ -557,13 +558,17 @@ impl<'a> Widget for Chart<'a> {
                     });
                     if let GraphType::Line = dataset.graph_type {
                         for data in dataset.data.windows(2) {
-                            ctx.draw(&Line {
-                                x1: data[0].0,
-                                y1: data[0].1,
-                                x2: data[1].0,
-                                y2: data[1].1,
-                                color: dataset.style.fg.unwrap_or(Color::Reset),
-                            })
+                            if !data[1].2 {
+                                continue;
+                            } else {
+                                ctx.draw(&Line {
+                                    x1: data[0].0,
+                                    y1: data[0].1,
+                                    x2: data[1].0,
+                                    y2: data[1].1,
+                                    color: dataset.style.fg.unwrap_or(Color::Reset),
+                                })
+                            }
                         }
                     }
                 })
@@ -629,7 +634,7 @@ mod tests {
 
     #[test]
     fn it_should_hide_the_legend() {
-        let data = [(0.0, 5.0), (1.0, 6.0), (3.0, 7.0)];
+        let data = points![(0.0, 5.0), (1.0, 6.0), (3.0, 7.0)];
         let cases = [
             LegendTestCase {
                 chart_area: Rect::new(0, 0, 100, 100),
@@ -646,7 +651,7 @@ mod tests {
             let datasets = (0..10)
                 .map(|i| {
                     let name = format!("Dataset #{i}");
-                    Dataset::default().name(name).data(&data)
+                    Dataset::default().name(name).data(data)
                 })
                 .collect::<Vec<_>>();
             let chart = Chart::new(datasets)
@@ -657,4 +662,27 @@ mod tests {
             assert_eq!(layout.legend_area, case.legend_area);
         }
     }
+}
+
+#[macro_export]
+macro_rules! points {
+    ($(($x:expr, $y:expr)),*) => {
+        &[$(($x, $y, true)),*]
+    };
+    ($(($x:expr, $y:expr)),*,) => {
+        points![$(($x, $y)),*]
+    };
+    ($(($x:expr, $y:expr, $valid:expr)),*) => {
+        &[$(($x, $y, $valid)),*]
+    };
+    ($(($x:expr, $y:expr, $valid:expr)),*,) => {
+        points![$(($x, $y, $valid)),*]
+    };
+    ($x:expr) => {{
+        let mut result: Vec<(f64, f64, bool)> = Vec::new();
+        for i in $x {
+            result.push((i.0, i.1, true));
+        }
+        result
+    }};
 }
