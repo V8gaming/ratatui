@@ -21,7 +21,7 @@ pub struct Axis<'a> {
     /// Title displayed next to axis end
     title: Option<Spans<'a>>,
     /// Bounds for the axis (all data points outside these limits will not be represented)
-    bounds: [f64; 2],
+    pub bounds: [f64; 2],
     /// A list of labels to put to the left or below the axis
     labels: Option<Vec<Span<'a>>>,
     /// The style used to draw the axis itself
@@ -103,13 +103,13 @@ pub struct Dataset<'a> {
     /// Name of the dataset (used in the legend if shown)
     name: Cow<'a, str>,
     /// A reference to the actual data
-    data: &'a [(f64, f64, bool)],
+    pub data: &'a [(f64, f64, bool)],
     /// Symbol used for each points of this dataset
     marker: symbols::Marker,
     /// Determines graph type used for drawing points
-    graph_type: GraphType,
+    pub graph_type: GraphType,
     /// Style used to plot this dataset
-    style: Style,
+    pub style: Style,
 }
 
 impl<'a> Default for Dataset<'a> {
