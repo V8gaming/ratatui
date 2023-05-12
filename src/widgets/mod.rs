@@ -10,6 +10,7 @@
 //! - [`Table`]
 //! - [`Paragraph`]
 //! - [`Chart`]
+//! - [`SVG`]
 //! - [`BarChart`]
 //! - [`Gauge`]
 //! - [`Sparkline`]
@@ -22,6 +23,7 @@ mod block;
 pub mod calendar;
 pub mod canvas;
 mod chart;
+mod svg;
 mod clear;
 mod gauge;
 mod list;
