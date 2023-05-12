@@ -5,29 +5,29 @@ use crate::{style::{Style, Color}, layout::{Rect, Alignment}, buffer::Buffer, te
 use super::{Block, Widget, canvas::{Canvas, Points, Line}, GraphType};
 /// An X or Y axis for the chart widget
 #[derive(Debug, Clone)]
-pub struct SVGAxis {
+pub struct SvgAxis {
     /// Bounds for the axis (all data points outside these limits will not be represented)
     bounds: [f64; 2],
     /// The style used to draw the axis itself
     style: Style,
 }
 
-impl Default for SVGAxis {
-    fn default() -> SVGAxis {
-        SVGAxis {
+impl Default for SvgAxis {
+    fn default() -> SvgAxis {
+        SvgAxis {
             bounds: [0.0, 0.0],
             style: Default::default(),
         }
     }
 }
 
-impl SVGAxis {
-    pub fn bounds(mut self, bounds: [f64; 2]) -> SVGAxis {
+impl SvgAxis {
+    pub fn bounds(mut self, bounds: [f64; 2]) -> SvgAxis {
         self.bounds = bounds;
         self
     }
 
-    pub fn style(mut self, style: Style) -> SVGAxis {
+    pub fn style(mut self, style: Style) -> SvgAxis {
         self.style = style;
         self
     }
@@ -37,7 +37,7 @@ impl SVGAxis {
 
 /// A group of data points
 #[derive(Debug, Clone)]
-pub struct SVGDataset<'a> {
+pub struct SvgDataset<'a> {
     /// Name of the dataset (used in the legend if shown)
     name: Cow<'a, str>,
     /// A reference to the actual data
@@ -50,9 +50,9 @@ pub struct SVGDataset<'a> {
     style: Style,
 }
 
-impl<'a> Default for SVGDataset<'a> {
-    fn default() -> SVGDataset<'a> {
-        SVGDataset {
+impl<'a> Default for SvgDataset<'a> {
+    fn default() -> SvgDataset<'a> {
+        SvgDataset {
             name: Cow::from(""),
             data: &[],
             marker: symbols::Marker::Dot,
@@ -62,8 +62,8 @@ impl<'a> Default for SVGDataset<'a> {
     }
 }
 
-impl<'a> SVGDataset<'a> {
-    pub fn name<S>(mut self, name: S) -> SVGDataset<'a>
+impl<'a> SvgDataset<'a> {
+    pub fn name<S>(mut self, name: S) -> SvgDataset<'a>
     where
         S: Into<Cow<'a, str>>,
     {
@@ -71,37 +71,37 @@ impl<'a> SVGDataset<'a> {
         self
     }
 
-    pub fn data(mut self, data: &'a [(f64, f64, bool)]) -> SVGDataset<'a> {
+    pub fn data(mut self, data: &'a [(f64, f64, bool)]) -> SvgDataset<'a> {
         self.data = data;
         self
     }
 
-    pub fn marker(mut self, marker: symbols::Marker) -> SVGDataset<'a> {
+    pub fn marker(mut self, marker: symbols::Marker) -> SvgDataset<'a> {
         self.marker = marker;
         self
     }
 
-    pub fn graph_type(mut self, graph_type: GraphType) -> SVGDataset<'a> {
+    pub fn graph_type(mut self, graph_type: GraphType) -> SvgDataset<'a> {
         self.graph_type = graph_type;
         self
     }
 
-    pub fn style(mut self, style: Style) -> SVGDataset<'a> {
+    pub fn style(mut self, style: Style) -> SvgDataset<'a> {
         self.style = style;
         self
     }
 }
 
 #[derive(Debug, Clone)]
-pub struct SVG<'a> {
+pub struct Svg<'a> {
     /// A block to display around the widget eventually
     block: Option<Block<'a>>,
     /// The horizontal axis
-    x_axis: SVGAxis,
+    x_axis: SvgAxis,
     /// The vertical axis
-    y_axis: SVGAxis,
+    y_axis: SvgAxis,
     /// A reference to the datasets
-    datasets: Vec<SVGDataset<'a>>,
+    datasets: Vec<SvgDataset<'a>>,
     /// The widget base style
     style: Style,
 }
@@ -112,34 +112,34 @@ struct ChartLayout {
 }
 
 
-impl<'a> SVG<'a> {
-    pub fn new(datasets: Vec<SVGDataset<'a>>) -> SVG<'a> {
-        SVG {
+impl<'a> Svg<'a> {
+    pub fn new(datasets: Vec<SvgDataset<'a>>) -> Svg<'a> {
+        Svg {
             block: None,
-            x_axis: SVGAxis::default(),
-            y_axis: SVGAxis::default(),
+            x_axis: SvgAxis::default(),
+            y_axis: SvgAxis::default(),
             style: Default::default(),
             datasets,
         }
     }
 
-    pub fn block(mut self, block: Block<'a>) -> SVG<'a> {
+    pub fn block(mut self, block: Block<'a>) -> Svg<'a> {
         self.block = Some(block);
         self
     }
 
-    pub fn style(mut self, style: Style) -> SVG<'a> {
+    pub fn style(mut self, style: Style) -> Svg<'a> {
         self.style = style;
         self
     }
 
-    pub fn x_axis(mut self, size: i32) -> SVG<'a> {
-        self.x_axis = SVGAxis::default().bounds([0.0, size as f64]);
+    pub fn x_axis(mut self, size: i32) -> Svg<'a> {
+        self.x_axis = SvgAxis::default().bounds([0.0, size as f64]);
         self
     }
 
-    pub fn y_axis(mut self, size: i32) -> SVG<'a> {
-        self.y_axis = SVGAxis::default().bounds([0.0, size as f64]);
+    pub fn y_axis(mut self, size: i32) -> Svg<'a> {
+        self.y_axis = SvgAxis::default().bounds([0.0, size as f64]);
         self
     }
     fn layout(&self, area: Rect) -> ChartLayout {
@@ -158,7 +158,7 @@ impl<'a> SVG<'a> {
     }
 
 }
-impl<'a> Widget for SVG<'a> { 
+impl<'a> Widget for Svg<'a> { 
     fn render(mut self, area: Rect, buf: &mut Buffer) {
         if area.area() == 0 {
             return;
