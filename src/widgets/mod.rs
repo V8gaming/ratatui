@@ -36,6 +36,7 @@ mod tabs;
 pub use self::barchart::BarChart;
 pub use self::block::{Block, BorderType, Padding};
 pub use self::chart::{Axis, Chart, Dataset, GraphType};
+pub use self::svg::{Svg, SvgAxis, SvgDataset};
 pub use self::clear::Clear;
 pub use self::gauge::{Gauge, LineGauge};
 pub use self::list::{List, ListItem, ListState};
