@@ -4,7 +4,6 @@ use unicode_width::UnicodeWidthStr;
 
 use crate::layout::Alignment;
 use crate::{
-    points,
     buffer::Buffer,
     layout::{Constraint, Rect},
     style::{Color, Style},
@@ -634,7 +633,7 @@ mod tests {
 
     #[test]
     fn it_should_hide_the_legend() {
-        let data = points![(0.0, 5.0), (1.0, 6.0), (3.0, 7.0)];
+        let data = crate::points![(0.0, 5.0), (1.0, 6.0), (3.0, 7.0)];
         let cases = [
             LegendTestCase {
                 chart_area: Rect::new(0, 0, 100, 100),
@@ -678,11 +677,4 @@ macro_rules! points {
     ($(($x:expr, $y:expr, $valid:expr)),*,) => {
         points![$(($x, $y, $valid)),*]
     };
-    ($x:expr) => {{
-        let mut result: Vec<(f64, f64, bool)> = Vec::new();
-        for i in $x {
-            result.push((i.0, i.1, true));
-        }
-        result
-    }};
 }

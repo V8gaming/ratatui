@@ -18,20 +18,20 @@ use std::{
     time::{Duration, Instant},
 };
 
-const DATA: [(f64, f64, bool); 5] = [
-    (0.0, 0.0, true), 
-    (1.0, 1.0, true), 
-    (2.0, 2.0, true), 
-    (3.0, 3.0, true), 
-    (4.0, 4.0, true)];
-const DATA2: [(f64, f64, bool); 7] = [
-    (0.0, 0.0, true),
-    (10.0, 1.0, true),
-    (20.0, 0.5, true),
-    (30.0, 1.5, true),
-    (40.0, 1.0, true),
-    (50.0, 2.5, true),
-    (60.0, 3.0, true),
+const DATA: [(f64, f64, bool); 5] = *points![
+    (0.0, 0.0), 
+    (1.0, 1.0), 
+    (2.0, 2.0), 
+    (3.0, 3.0), 
+    (4.0, 4.0)];
+const DATA2: [(f64, f64, bool); 7] = *points![
+    (0.0, 0.0),
+    (10.0, 1.0),
+    (20.0, 0.5),
+    (30.0, 1.5),
+    (40.0, 1.0),
+    (50.0, 2.5),
+    (60.0, 3.0),
 ];
 
 #[derive(Clone)]
@@ -122,7 +122,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     terminal.show_cursor()?;
 
     if let Err(err) = res {
-        println!("{:?}", err)
+        println!("{err:?}")
     }
 
     Ok(())
