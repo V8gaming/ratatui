@@ -1,6 +1,6 @@
 use std::borrow::Cow;
 
-use crate::{style::{Style, Color}, layout::{Rect, Alignment}, buffer::Buffer, text::{Spans, Span}, symbols};
+use crate::{style::{Style, Color}, layout::Rect, buffer::Buffer, symbols};
 
 use super::{Block, Widget, canvas::{Canvas, Points, Line}, GraphType};
 /// An X or Y axis for the chart widget
@@ -167,7 +167,6 @@ impl<'a> Widget for Svg<'a> {
         // Sample the style of the entire widget. This sample will be used to reset the style of
         // the cells that are part of the components put on top of the grah area (i.e legend and
         // axis names).
-        let original_style = buf.get(area.left(), area.top()).style();
 
         let chart_area = match self.block.take() {
             Some(b) => {
