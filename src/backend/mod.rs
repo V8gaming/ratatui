@@ -13,10 +13,15 @@ mod crossterm;
 #[cfg(feature = "crossterm")]
 pub use self::crossterm::CrosstermBackend;
 
+#[cfg(feature = "termwiz")]
+mod termwiz;
+#[cfg(feature = "termwiz")]
+pub use self::termwiz::TermwizBackend;
+
 mod test;
 pub use self::test::TestBackend;
 
-#[derive(Debug, Clone, Copy, PartialEq)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum ClearType {
     All,
     AfterCursor,

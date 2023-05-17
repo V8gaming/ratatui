@@ -37,6 +37,7 @@ The library supports multiple backends:
 
 - [crossterm](https://github.com/crossterm-rs/crossterm) [default]
 - [termion](https://github.com/ticki/termion)
+- [termwiz](https://github.com/wez/wezterm/tree/master/termwiz)
 
 The library is based on the principle of immediate rendering with intermediate
 buffers. This means that at each new frame you should build all widgets that are
@@ -51,7 +52,7 @@ you may rely on the previously cited libraries to achieve such features.
 
 ## Rust version requirements
 
-Since version 0.17.0, `ratatui` requires **rustc version 1.59.0 or greater**.
+Since version 0.21.0, `ratatui` requires **rustc version 1.65.0 or greater**.
 
 # Documentation
 
